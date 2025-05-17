@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sui-mcp-server": {
+      "command": "node",
+      "args": ["./build/index.js"],
+      "env": {
+        "SUI_NETWORK": "testnet"
+      }
+    }
+  }
+} 

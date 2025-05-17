@@ -1,0 +1,141 @@
+# Sui MCP Server 提示词示例
+
+以下是在Cursor中使用Sui MCP工具时的提示词示例，可用于测试和演示各项功能。
+
+## 场景一：网络探索与监控
+
+```
+帮我查看当前Sui区块链网络的状态，并获取网络时间。然后切换到测试网并再次验证网络状态。
+```
+
+## 场景二：智能合约ABI与文档生成
+
+```
+帮我分析这个Sui智能合约的结构：0x2。
+我需要了解其ABI、接口文档，特别关注其中的coin模块。同时也给我一个浏览器链接，以便我可以直接在浏览器中查看它。
+```
+
+## 场景三：区块链对象查询与分析
+
+```
+帮我查询这个Sui对象的信息：0x5fb74d440a73ee87f3e92ehafd462b4f1f3ea6ce909937fc5a26e9210
+同时，我想分析这个交易的gas使用情况：8czA5Q6NhS5JQaouNnVAg2t88E6ZFVH7mHM5B5xnBG9z
+最后，请解释一下Sui中的EOBJECT_NOT_OWNED错误码是什么意思。
+```
+
+## 场景四：开发者钱包管理与测试代币
+
+```
+我需要在Sui测试网上进行开发测试。请帮我创建一个测试钱包，获取一些测试代币，然后构建一个简单的转账交易。
+```
+
+或更结构化的提示词：
+```
+我是一名Sui开发新手，需要设置测试环境：
+1. 请在测试网(testnet)上为我创建一个测试钱包
+2. 从水龙头获取一些测试SUI代币
+3. 假设我要给另一个地址(0x123...456)转账，帮我构建一个简单的转账交易
+4. 解释一下交易构建的结果，以及我接下来需要做什么才能完成这笔交易
+```
+
+## 场景五：智能合约验证与源码查询
+
+```
+帮我验证这个Sui智能合约并查看其源码：0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+```
+
+或更详细的提示词：
+```
+我需要验证一个已部署的Sui智能合约：
+1. 合约ID是：0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+2. 这是一个简单的计数器合约，主要文件是sources/example.move，内容如下：
+```
+module example::counter {
+    use sui::object::{Self, UID};
+    use sui::transfer;
+    use sui::tx_context::{Self, TxContext};
+
+    struct Counter has key, store {
+        id: UID,
+        value: u64
+    }
+
+    public entry fun create(ctx: &mut TxContext) {
+        let counter = Counter {
+            id: object::new(ctx),
+            value: 0
+        };
+        transfer::share_object(counter);
+    }
+
+    public entry fun increment(counter: &mut Counter) {
+        counter.value = counter.value + 1;
+    }
+}
+```
+3. Move.toml内容如下：
+```
+[package]
+name = "counter"
+version = "0.1.0"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
+
+[addresses]
+example = "0x0"
+```
+4. 帮我验证这个合约，然后查询它的已验证源码
+```
+
+## 综合场景提示词
+
+```
+帮我完成以下Sui区块链开发任务：
+1. 首先检查当前网络状态，并切换到测试网
+2. 创建一个测试钱包并为其获取测试代币
+3. 获取0x2合约的ABI文档
+4. 构建一个简单的交易，用于从新钱包向0x123...456地址转账
+5. 分析上一笔交易的gas使用情况，并提供优化建议
+```
+
+## 高级用户提示词（包含具体技术细节）
+
+```
+作为Sui区块链开发者，我需要完成以下工作流：
+
+1. 环境准备:
+   - 查询当前连接的网络环境和状态
+   - 切换到测试网(testnet)
+   - 验证网络切换成功
+
+2. 开发账户设置:
+   - 创建一个测试钱包
+   - 记录生成的地址
+   - 从测试网水龙头请求SUI代币
+
+3. 合约交互准备:
+   - 获取系统框架合约(0x2)的ABI，特别关注coin模块
+   - 生成完整的接口文档
+
+4. 交易构建与分析:
+   - 构建一个向地址0x123...456转账的交易
+   - 分析transaction digest为8czA5Q6NhS5JQaouNnVAg2t88E6ZFVH7mHM5B5xnBG9z的gas使用情况
+   - 提供优化建议
+
+请使用MCP工具执行以上任务，并在每个步骤后解释结果。
+```
+
+## 编写提示词的建议
+
+1. **明确目标**：清楚说明你想要做什么。
+   
+2. **提供具体的标识符**：如果你知道特定的合约ID、对象ID或交易ID，请在提示中明确提供。
+
+3. **分步说明**：将复杂任务分解为清晰的步骤，这样AI更容易按顺序执行。
+
+4. **包含上下文**：简要解释为什么需要这些信息，这会帮助AI提供更相关的回应。
+
+5. **指定格式**：如果你需要特定格式的输出（如Markdown、JSON等），请明确说明。
+
+6. **使用技术术语**：Sui区块链有特定的术语，使用正确的术语可以帮助AI更准确地理解你的需求。
