@@ -1,5 +1,5 @@
 {
-  "name": "sui-mcp",
+  "name": "sui-dev-mcp",
   "version": "1.0.0",
   "description": "A Sui blockchain MCP service for Cursor IDE",
   "type": "module",
